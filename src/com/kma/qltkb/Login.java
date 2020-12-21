@@ -89,7 +89,18 @@ public class Login extends JFrame {
 		ButtonSelect1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Nếu checkLogin trả về kết quả true thì sẽ login thành công
-				if(Student.checkLogin(textField_MSSV1.getText(), String.valueOf(passwordField_Login.getPassword()))==true) {
+				String idInput = textField_MSSV1.getText().trim();
+				String passInput = passwordField_Login.getText().trim();
+				
+				// Kiểm tra tính an toàn của input 
+				  boolean hackDetect = Connect_SQL.hackDetect(idInput) || Connect_SQL.hackDetect(passInput);    
+	  
+				  if (hackDetect) {
+					  LabelCheckLogin.setText("Don't hack me, please!!");
+					  return;
+				  }
+				
+				if(Student.checkLogin(idInput, passInput)==true) {
 					Search a = new Search();
 					a.setVisible(true);
 					setVisible(false);

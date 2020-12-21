@@ -84,28 +84,29 @@ public class Search extends JFrame {
 				try {
 					// Lấy giá trị từ search box
 					String date = textField_Search.getText(); 
-
+					
 					// Tạo đối tượng ParseXLS để dùng các phương thức 
 					ParseXLS parse = new ParseXLS();
-
-					Label_KQ.setText("Mon hoc cua ngay thu " + date + newline + newline);
+					Label_KQ.setText("Môn học của ngày " + date + newline + newline);
 					// Lấy dữ liệu từ phương thức findSubject của class ParseXLS rồi phân tích thành dạng phù hợp để in ra màn hình
 					String data[] = parse.findSubjects(date).replace("[", "").replace("]", "").replaceAll("\n", "").split(",");
-
+					
 					// Nếu data = null thì in ra không có môn học nào
-					if (data[0].equals("null")) {
-						Label_KQ.append("Khong co mon nao" + newline);
+					if (data[0].equals("null") || data[0].equals("")) {
+						Label_KQ.append("Không có môn nào" + newline);
 						return;
 					}
-
-					// Nếu data khác null thì sẽ in ra các môn học có trong ngày hôm đó
+					
+					// Nếu data khác null thì sẽ in ra các môn học có trong ngày hôm đó	
 					for (int i=0; i<data.length; ++i) {
 							String subject = data[i].substring(0, data[i].indexOf('(')).strip();
 							String room = data[i].substring(data[i].indexOf('(') + 1, data[i].indexOf(')')).strip();
-							Label_KQ.append("Hoc mon " + subject + " tai "  + room + newline);
+							Label_KQ.append("Học môn " + subject + " tại "  + room + newline);
 					}
 				}catch(IOException error) {
-					Label_KQ.setText("Something went wrong!" + newline);
+					Label_KQ.setText("Có lỗi xảy ra. Mời bạn thử lại!" + newline);
+				}catch(StringIndexOutOfBoundsException ex) {
+					Label_KQ.setText("Không có môn nào!" + newline);
 				}
 			}
 		});

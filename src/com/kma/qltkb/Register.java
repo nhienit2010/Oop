@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class Register extends JFrame {
 
@@ -102,15 +103,29 @@ public class Register extends JFrame {
 		// Bắt sự kiện khi được click vào
 		ButtonOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			// Tránh người dùng điền vào giá trị rỗng
-			  if (textField_Id.getText().equals("") || 
-					  textField_Id.getText().equals("") || 
-					  textField_FullName.getText().equals("") ||
-					  passwordField_1.getText().equals("") ||
-					  passwordField_2.getText().equals("") ) {
+				String idInput = textField_Id.getText().trim();
+				String fullnameInput = textField_FullName.getText().trim();
+				String passInput = passwordField_1.getText().trim();
+				String passConfirmInput = passwordField_2.getText().trim();
+			
+				// Tránh người dùng điền vào giá trị rỗng
+			  if (idInput.equals("") || 
+					  fullnameInput.equals("") ||
+					  passInput.equals("") ||
+					  passConfirmInput.equals("") ) {
 				  Label_check.setText("Không được bỏ trống!!");
 				  return;
 			  }
+			  
+			  // Phát hiện tấn công SQLi
+			  boolean hackDetect = Connect_SQL.hackDetect(idInput) || Connect_SQL.hackDetect(fullnameInput) 
+					  				|| Connect_SQL.hackDetect(passInput) || Connect_SQL.hackDetect(passConfirmInput);    
+			  
+			  if (hackDetect) {
+				  Label_check.setText("Don't hack me, please!!");
+				  return;
+			  }
+			  
 			// Nếu user cần đăng ký không tồn tại trong database và giá trị của 2 trường password và confirm_password là giống nhau thì sẽ được đăng ký
 			  if(Student.checkExists(textField_Id.getText()) == false) {
 				  

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 public class Main {
 	
 	public static void main(String[] args) throws IOException {
+		// Chạy ứng dụng với trang Login
 		Login login = new Login();
 		login.setVisible(true);
 	}
