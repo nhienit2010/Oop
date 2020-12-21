@@ -20,6 +20,7 @@ public class Student {
 		this.pass = pass;
 	}
 
+	// Thêm một user vào trong database
 	public void addIntoSQL() {
 		try {
 			Connect_SQL connect = new Connect_SQL();
@@ -33,6 +34,7 @@ public class Student {
 	    }
 	}
 	
+	// Check người dùng có id đã tồn tại trong database hay chưa?
 	public static boolean checkExists(String id) {
 		boolean flag = false;
 		
@@ -53,6 +55,8 @@ public class Student {
 		return flag;
 		
 	}
+
+	// Kiểm tra id và pass vừa nhập vào có khớp với dữ liệu trong database hay không? Nếu có thì được phép login và không thì trả về lỗi
 	public static boolean checkLogin(String id,String pass) {
 		boolean flag = false;
 		

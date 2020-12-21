@@ -78,17 +78,27 @@ public class Search extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		
 		JButton btnNewButton = new JButton("T\u00ECm ki\u1EBFm");
+		// Bắt sự kiện khi click
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					// Lấy giá trị từ search box
 					String date = textField_Search.getText(); 
+
+					// Tạo đối tượng ParseXLS để dùng các phương thức 
 					ParseXLS parse = new ParseXLS();
+
 					Label_KQ.setText("Mon hoc cua ngay thu " + date + newline + newline);
+					// Lấy dữ liệu từ phương thức findSubject của class ParseXLS rồi phân tích thành dạng phù hợp để in ra màn hình
 					String data[] = parse.findSubjects(date).replace("[", "").replace("]", "").replaceAll("\n", "").split(",");
+
+					// Nếu data = null thì in ra không có môn học nào
 					if (data[0].equals("null")) {
 						Label_KQ.append("Khong co mon nao" + newline);
 						return;
 					}
+
+					// Nếu data khác null thì sẽ in ra các môn học có trong ngày hôm đó
 					for (int i=0; i<data.length; ++i) {
 							String subject = data[i].substring(0, data[i].indexOf('(')).strip();
 							String room = data[i].substring(data[i].indexOf('(') + 1, data[i].indexOf(')')).strip();

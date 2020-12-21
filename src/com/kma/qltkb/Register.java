@@ -99,8 +99,10 @@ public class Register extends JFrame {
 		textField_FullName.setColumns(10);
 		
 		JButton ButtonOK = new JButton("OK");
+		// Bắt sự kiện khi được click vào
 		ButtonOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			// Tránh người dùng điền vào giá trị rỗng
 			  if (textField_Id.getText().equals("") || 
 					  textField_Id.getText().equals("") || 
 					  textField_FullName.getText().equals("") ||
@@ -109,7 +111,7 @@ public class Register extends JFrame {
 				  Label_check.setText("Không được bỏ trống!!");
 				  return;
 			  }
-				  
+			// Nếu user cần đăng ký không tồn tại trong database và giá trị của 2 trường password và confirm_password là giống nhau thì sẽ được đăng ký
 			  if(Student.checkExists(textField_Id.getText()) == false) {
 				  
 				  if(String.valueOf(passwordField_1.getPassword()).equals(String.valueOf(passwordField_2.getPassword()))==true) {

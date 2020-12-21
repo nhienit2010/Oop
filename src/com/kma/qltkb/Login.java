@@ -85,8 +85,10 @@ public class Login extends JFrame {
 		contentPane.add(passwordField_Login);
 		
 		ButtonSelect1 = new JButton("OK");
+		// Bắt sự kiện khi click
 		ButtonSelect1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Nếu checkLogin trả về kết quả true thì sẽ login thành công
 				if(Student.checkLogin(textField_MSSV1.getText(), String.valueOf(passwordField_Login.getPassword()))==true) {
 					Search a = new Search();
 					a.setVisible(true);
